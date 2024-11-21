@@ -5,13 +5,13 @@ class Truck extends Vehicle {
     @Override
     public void startEngine() {
         // Printing message to indicate engine start
-        System.out.println("Motorcycle: Starting the engine...");
+        System.out.println("Truck: Starting the engine...");
     }
 
     // Overriding the stopEngine method
     @Override
     public void stopEngine() {
         // Printing message to indicate engine stop
-        System.out.println("Motorcycle: Stopping the engine...");
+        System.out.println("Truck: Stopping the engine...");
     }
 }
