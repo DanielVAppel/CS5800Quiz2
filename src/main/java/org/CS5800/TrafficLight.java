@@ -1,45 +1,41 @@
 package org.CS5800;
 
-public class TrafficLight {
+import java.util.ArrayList;
+import java.util.List;
 
-    // Enum to represent the traffic light colors
-    enum Color {
-        RED, GREEN, YELLOW
-    }
+public class TrafficLight implements Subject {
 
-    private Color currentColor;
+    private String currentLight;
+    private String[] lights = {"GREEN", "YELLOW", "RED", "YELLOW"};
+    private int lightIndex = 2;
 
-    public TrafficLight() {
-        currentColor = Color.RED; // Start with RED
-    }
+    private List<Listener> listeners = new ArrayList<>();
 
-    // Method to change the color of the traffic light
-    public void changeColor() {
-        switch (currentColor) {
-            case RED:
-                currentColor = Color.GREEN;
-                break;
-            case GREEN:
-                currentColor = Color.YELLOW;
-                break;
-            case YELLOW:
-                currentColor = Color.RED;
-                break;
+    public TrafficLight() {	currentLight = lights[2]; }
+
+    public void start() throws InterruptedException {
+        for(int i = 0; i < 10; i++) {
+            Thread.sleep(1000);
+            lightIndex = (++lightIndex) % 4; //0,1,2,3,0,1,2,3
+            currentLight = lights[lightIndex];
+            System.out.println("\nLight is " + currentLight);
+            updateListeners(currentLight);
         }
-        System.out.println("The traffic light is now: " + currentColor);
     }
 
-    public static void main(String[] args) {
-        TrafficLight trafficLight = new TrafficLight();
-
-        // Run the traffic light in a loop
-        while (true) {
-            trafficLight.changeColor();
-            try {
-                Thread.sleep(2000); // Pause for 2 seconds
-            } catch (InterruptedException e) {
-                System.out.println("Traffic light interrupted: " + e.getMessage());
-            }
+    private void updateListeners(Object arg) {
+        for (Listener listener : listeners) {
+            listener.update(arg);
         }
+    }
+
+    @Override
+    public void addListener(Listener lstnr) {
+        listeners.add(lstnr);
+    }
+
+    @Override
+    public void removeListener(Listener lstnr) {
+        listeners.remove(lstnr);
     }
 }

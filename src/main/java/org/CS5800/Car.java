@@ -2,7 +2,7 @@ package org.CS5800;
 
 // Car.java
 // Class Car extending Vehicle
-class Car extends Vehicle {
+public class Car extends Vehicle implements  Listener{
     // Overriding the startEngine method
     @Override
     public void startEngine() {
@@ -15,5 +15,10 @@ class Car extends Vehicle {
     public void stopEngine() {
         // Printing message to indicate engine stop
         System.out.println("Car: Stopping the engine...");
+    }
+
+    @Override
+    public void update(Object arg) {
+
     }
 }
